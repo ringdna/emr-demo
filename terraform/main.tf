@@ -16,7 +16,6 @@ locals {
   key_name           = "emr-dev"
   emr_bucket_name    = "emr-airflow"
   emr_bootstrap_path = "scripts/bootstrap.sh"
-  # emr_user_step_path = "scripts/createjupyterusers.sh"
 }
 
 resource "tls_private_key" "example" {
@@ -51,13 +50,6 @@ resource "aws_s3_bucket_object" "bootstrap" {
   source = "${path.module}/scripts/bootstrap.sh"
   etag = "${filemd5("${path.module}/scripts/bootstrap.sh")}"
 }
-
-# resource "aws_s3_bucket_object" "users" {
-#   bucket = aws_s3_bucket.emr_bucket.id
-#   key    = local.emr_user_step_path
-#   source = "${path.module}/scripts/createjupyterusers.sh"
-#   etag = "${filemd5("${path.module}/scripts/createjupyterusers.sh")}"
-# }
 
 output "ec2_attributes" {
 	value = {

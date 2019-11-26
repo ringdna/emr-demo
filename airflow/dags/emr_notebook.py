@@ -7,7 +7,6 @@ AWS_REGION='us-west-1'
 EMR_BUCKET='emr-airflow'
 EC2_KEYNAME="emr-dev"
 BOOTSTRAP_URI = 's3://{}/scripts/bootstrap.sh'.format(EMR_BUCKET)
-# USER_STEP_URI = 's3://{}/scripts/createjupyterusers.sh'.format(EMR_BUCKET)
 EMR_MANAGED_MASTER_SECURITY_GROUP = "sg-0b7aa2ddd46472f34"
 EMR_MANAGED_SLAVE_SECURITY_GROUP = "sg-0b7aa2ddd46472f34"
 SUBNET_ID = "subnet-0e0c9ef325662c67d"
@@ -104,14 +103,6 @@ default_emr_settings = {
             'Path': BOOTSTRAP_URI 
             # 'Args': bootstrap_args  # Just showing that we could pass args into the script if we needed.
         }
-    }],
-    "Steps": [{ 
-        'Name': 'Create Jupyter Users', 
-        'ActionOnFailure': 'CONTINUE', 
-        'HadoopJarStep': { 
-          'Jar': 's3://{}.elasticmapreduce/libs/script-runner/script-runner.jar'.format(AWS_REGION),
-          'Args': [USER_STEP_URI]
-         }
     }]
 }
 
