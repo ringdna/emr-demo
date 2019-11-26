@@ -48,15 +48,15 @@ resource "aws_s3_bucket_object" "bootstrap" {
   bucket = aws_s3_bucket.emr_bucket.id
   key    = local.emr_bootstrap_path
   source = "${path.module}/scripts/bootstrap.sh"
-  etag = "${filemd5("${path.module}/scripts/bootstrap.sh")}"
+  etag   = "${filemd5("${path.module}/scripts/bootstrap.sh")}"
 }
 
 output "ec2_attributes" {
-	value = {
+  value = {
     subnet_id                         = aws_subnet.main.id
     emr_managed_master_security_group = aws_security_group.allow_access.id
     emr_managed_slave_security_group  = aws_security_group.allow_access.id
-	}
+  }
 }
 
 resource "aws_security_group" "allow_access" {
@@ -65,9 +65,9 @@ resource "aws_security_group" "allow_access" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
 
     cidr_blocks = ["0.0.0.0/0"] # open to world for debug/demo
   }
