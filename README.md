@@ -21,7 +21,6 @@ AWS has made it pretty easy to run shared notebooks backed by an EMR cluster.
 
 EMR Notebooks runs Jupyter Notebook version 5.7.0 and Python 3.6.5.
 EMR Notebooks is pre-configured with the following kernels and library packages installed:
-- Kernels
 - PySpark
 - PySpark3
 - Python3
@@ -30,8 +29,18 @@ EMR Notebooks is pre-configured with the following kernels and library packages 
 
 
 If you require additional libraries that all users can access, you can install them using bootstrap actions. You can install additional library packages from within the notebook editor. These libraries are notebook-scoped libraries. They are available only to the current notebook session. They do not interfere with cluster-wide libraries or libraries installed within other notebooks.
+Take a look at `./terraform/scripts/bootstrap.sh` for the example python libraries that are installed on all worker nodes during cluster creation.
 
-## [Security Groups](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-managed-notebooks-security-groups.html)
+## [EMR Notebooks Security and Access Control](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-managed-notebooks-security.html)
+
+Several features are available to help you tailor the security posture of EMR Notebooks. This helps ensure that only authorized users have access to an EMR notebook, can work with notebooks, and use the notebook editor to execute code on the cluster. These features work along with the security features available for Amazon EMR and Amazon EMR clusters.
+
+- You can use [AWS Identity and Access Management policy statements](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-fine-grained-cluster-access.html#emr-managed-notebooks-tags-examples) together with notebook tags to limit access.
+- You can specify an AWS Service Role that determines what permissions an EMR notebook has when interacting with other AWS services
+
+- EC2 security groups act as virtual firewalls that control network traffic between the cluster's master instance and the notebook editor. You can use defaults or customize these security groups.
+
+#### [Security Groups](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-managed-notebooks-security-groups.html)
 
 When you create an EMR notebook, two security groups are used to control network traffic between the EMR notebook and the Amazon EMR cluster when the notebook editor is used. The default security groups have minimal rules that allow only network traffic between the EMR Notebooks service and the clusters to which notebooks are attached.
 
