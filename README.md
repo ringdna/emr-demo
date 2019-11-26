@@ -45,7 +45,7 @@ With EMR Notebooks, the notebook editor you access from the Amazon EMR console i
 
 ## Issues
 
-The main problem I've encountered with this simple set up is the fact that the CloudFormation template doesn't make it easy to configure an EC2 Instance Profile for the airflow workers.
+The main problem I've encountered with this simple set up is the fact that the [CloudFormation template doesn't make it easy to configure an EC2 Instance Profile for the airflow workers](https://github.com/villasv/aws-airflow-stack/issues/69).
 These worker nodes need access to AWS EMR in order to create clusters.
 Ive simply added the following policy manually to the airflow role(arn:aws:iam::${my-account}:role/airflow-ring-TurbineCluster-${uuid}-AirflowRole-${uuid}) produced from the CloudFormation stack:
 
