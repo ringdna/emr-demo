@@ -4,12 +4,12 @@ from airflow.contrib.operators.emr_create_job_flow_operator import EmrCreateJobF
 # The following variables are set via terraform (infra team).
 # The can be stored in s3 and airflow can be configured to read them at run time (in order to setup the EMR cluster).
 AWS_REGION='us-west-1'
-EMR_BUCKET='emr-airflow'
-EC2_KEYNAME="emr-dev"
+EMR_BUCKET='ringdna-emr-qa'
+EC2_KEYNAME="qa-20191001"
 BOOTSTRAP_URI = 's3://{}/scripts/bootstrap.sh'.format(EMR_BUCKET)
-EMR_MANAGED_MASTER_SECURITY_GROUP = "sg-0b7aa2ddd46472f34"
-EMR_MANAGED_SLAVE_SECURITY_GROUP = "sg-0b7aa2ddd46472f34"
-SUBNET_ID = "subnet-0e0c9ef325662c67d"
+EMR_MANAGED_MASTER_SECURITY_GROUP = "sg-0f7ca75c1e6fa1146"
+EMR_MANAGED_SLAVE_SECURITY_GROUP = "sg-0f7ca75c1e6fa1146"
+SUBNET_ID = "subnet-0734604af9d2cced2"
 
 args = {
     'owner': 'airflow',
@@ -28,7 +28,7 @@ dag = airflow.DAG(
 default_emr_settings = { 
     "Name": "test_emr", 
     "LogUri": 's3://{}/logs/'.format(EMR_BUCKET),
-    "ReleaseLabel": "emr-5.28.0",
+    "ReleaseLabel": "emr-5.29.0",
     "Applications": [
         {
             "Name": "Hadoop"
